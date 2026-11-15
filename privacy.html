@@ -37,6 +37,11 @@ ul{padding-left:20px;}
 a{color:var(--amber);}
 a:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px;}
 footer{color:var(--mute);font-size:13px;}
+.contact{display:flex;flex-direction:column;gap:12px;max-width:65ch;}
+.contact label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--mute);}
+.contact input,.contact textarea{padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#1e262e;color:var(--paper);font:inherit;font-size:16px;}
+.contact button{align-self:flex-start;border:0;cursor:pointer;}
+.thanks{color:#3ccf8e;font-weight:600;}
 @media (max-width:480px){article{padding:18px;} h1{font-size:32px;}}
 </style>
 </head>
@@ -76,9 +81,18 @@ footer{color:var(--mute);font-size:13px;}
     <h2>Changes</h2>
     <p>If this policy changes, we will update the date at the top of this page.</p>
     <h2>Contact</h2>
-    <p id="p-contact">Questions about privacy? A contact address is being set up and will be listed here.</p>
+    <p id="p-contact">Questions about privacy? Send us a message with this form. If you want a reply, leave an email address. The message and the address are used only to answer you, and we delete them afterwards.</p>
+    <form name="contact" method="POST" action="/privacy?sent=1" data-netlify="true" netlify-honeypot="bot-field" class="contact">
+      <input type="hidden" name="form-name" value="contact">
+      <p hidden><label>Do not fill this in: <input name="bot-field"></label></p>
+      <label>Your email (optional)<input type="email" name="email" autocomplete="email" maxlength="200"></label>
+      <label>Your message<textarea name="message" required rows="5" maxlength="2000"></textarea></label>
+      <button type="submit" class="play">Send message</button>
+    </form>
+    <p class="thanks" id="thanks" hidden>Thanks, your message was sent.</p>
   </article>
   <footer><a href="./">Back to Curbline</a></footer>
 </main>
+<script>if (/[?&]sent=1/.test(location.search)) { document.getElementById('thanks').hidden = false; var f = document.querySelector('form.contact'); if (f) f.hidden = true; }</script>
 </body>
 </html>
