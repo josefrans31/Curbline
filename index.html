@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="description" content="Curbline: a 3D parking and city driving game. Earn your license, park for real, and cruise a living city with traffic lights, police patrols and a daily challenge.">
 <meta name="theme-color" content="#0d1115">
 <title>Curbline</title>
@@ -18,7 +18,8 @@
   --f-body:"Saira",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
 }
-html,body{height:100%;margin:0;}
+html,body{height:100%;margin:0;touch-action:manipulation;}
+button,canvas,.hp{touch-action:manipulation;}
 [hidden]{display:none!important;}
 body{background:var(--ink);color:var(--paper);font-family:var(--f-body);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;}
 #gl{position:fixed;inset:0;width:100%;height:100%;display:block;}
@@ -2920,6 +2921,9 @@ addEventListener('hashchange', () => { if (location.hash === '#privacy') openPol
    ===================================================================== */
 function resize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
 addEventListener('resize', () => { resize(); layoutHud(); }); resize();
+// iOS Safari ignores user-scalable=no, so stop pinch and double-tap zoom here too
+['gesturestart','gesturechange','gestureend'].forEach(g => document.addEventListener(g, e => e.preventDefault()));
+{ let lastTap = 0; document.addEventListener('touchend', e => { const t = performance.now(); if (t - lastTap < 350 && !(e.target.closest && e.target.closest('input,textarea,a'))) e.preventDefault(); lastTap = t; }, { passive: false }); }
 let last = performance.now(), acc = 0, menuT = 0, hudT = 0;
 const STEP = 1 / 60;
 function tick(dt, now) {
