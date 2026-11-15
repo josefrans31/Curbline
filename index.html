@@ -117,6 +117,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
 .field input{padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--paper);font:inherit;font-size:17px;user-select:text;-webkit-user-select:text;}
 .doc.wide{width:min(900px,100%);}
 .set-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px 26px;}
+.set-grid .chip{padding:7px 10px;}
 .hint{font-size:12.5px;color:var(--mute);line-height:1.45;margin:0;}
 .keys-table{display:grid;grid-template-columns:auto 1fr;gap:5px 16px;font-size:13.5px;color:#d5dce2;}
 .keys-table b{font-family:var(--f-display);font-size:15px;letter-spacing:.04em;color:var(--paper);white-space:nowrap;}
@@ -163,11 +164,11 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
 #center-msg{position:absolute;left:50%;top:26%;transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;}
 #center-msg .big{font-family:var(--f-display);font-weight:800;font-size:40px;letter-spacing:.02em;text-shadow:0 2px 12px rgba(0,0,0,.6);}
 #parkring{width:64px;height:64px;}
-#toast{position:fixed;left:50%;top:max(70px,calc(env(safe-area-inset-top,0px) + 70px));transform:translateX(-50%);padding:9px 16px;border-radius:99px;background:var(--panel-solid);border:1px solid var(--line);font-weight:600;font-size:14px;pointer-events:none;max-width:calc(100% - 32px);text-align:center;z-index:30;}
+#toast{position:fixed;left:50%;top:max(78px,calc(env(safe-area-inset-top,0px) + 78px));transform:translateX(-50%);padding:9px 16px;border-radius:99px;background:var(--panel-solid);border:1px solid var(--line);font-weight:600;font-size:14px;pointer-events:none;max-width:calc(100% - 32px);text-align:center;z-index:30;}
 #peers{padding:8px 10px;font-size:12px;display:flex;flex-direction:column;gap:3px;max-width:180px;}
 #peers b{font-family:var(--f-display);font-size:14px;letter-spacing:.06em;}
 #peers .me{color:var(--amber);}
-.keys{position:absolute;left:50%;transform:translateX(-50%);bottom:182px;font-size:12px;color:var(--mute);background:var(--panel);padding:6px 12px;border-radius:99px;border:1px solid var(--line);white-space:nowrap;}
+.keys{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(var(--ctl-top,170px) + 12px);font-size:12px;color:var(--mute);background:var(--panel);padding:6px 12px;border-radius:99px;border:1px solid var(--line);white-space:nowrap;}
 
 /* ---------- driver controls, assists, police ---------- */
 #ctl{position:absolute;left:50%;transform:translateX(-50%);bottom:124px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 24px);}
@@ -180,13 +181,15 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
 .cbtn.lit{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);}
 .cbtn.hz.lit{background:var(--bad);color:#fff;border-color:var(--bad);}
 .cbtn.hold{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+#ctl.two{flex-wrap:wrap;}
+#ctl.two .cbtn{flex:0 0 calc(25% - 4.5px);}
 .cbtn.pulse{animation:pulse 1s infinite;}
 @keyframes pulse{50%{box-shadow:0 0 0 4px rgba(255,176,0,.35);border-color:var(--amber);color:var(--amber);}}
 #rearcam{position:absolute;left:max(12px,env(safe-area-inset-left,0px));top:max(84px,calc(env(safe-area-inset-top,0px) + 84px));width:clamp(180px,26vw,290px);aspect-ratio:16/9;border:2px solid #3a4651;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.45);}
 #rearcam svg{position:absolute;inset:0;width:100%;height:100%;}
 #rearcam .lab{position:absolute;left:8px;top:5px;font-family:var(--f-display);font-weight:700;font-size:11px;letter-spacing:.14em;color:#fff;text-shadow:0 1px 2px #000;}
 #rearcam .dist{position:absolute;right:8px;bottom:5px;font-family:var(--f-display);font-weight:800;font-size:18px;color:#fff;text-shadow:0 1px 3px #000;font-variant-numeric:tabular-nums;}
-#sensor{position:absolute;left:50%;transform:translateX(-50%);bottom:216px;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:var(--panel-solid);border:1px solid var(--line);font-family:var(--f-display);font-weight:700;font-size:14px;letter-spacing:.06em;white-space:nowrap;font-variant-numeric:tabular-nums;}
+#sensor{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(var(--ctl-top,170px) + 46px);display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:var(--panel-solid);border:1px solid var(--line);font-family:var(--f-display);font-weight:700;font-size:14px;letter-spacing:.06em;white-space:nowrap;font-variant-numeric:tabular-nums;}
 #sensor .bars{display:flex;gap:3px;}
 #sensor .bars i{width:12px;height:10px;border-radius:2px;background:#2c353e;}
 #sensor[data-lv="1"] .bars i:nth-child(-n+1){background:var(--good);}
@@ -194,6 +197,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
 #sensor[data-lv="3"] .bars i:nth-child(-n+3){background:var(--amber);}
 #sensor[data-lv="4"] .bars i{background:var(--bad);}
 #sensor[data-lv="4"]{border-color:var(--bad);color:var(--bad);}
+@media (pointer:coarse){#sensor{bottom:calc(var(--ctl-top,170px) + 12px);}}
 #cop-banner{position:absolute;left:50%;top:max(12px,env(safe-area-inset-top,0px));transform:translateX(-50%);padding:8px 16px;border-radius:12px;text-align:center;background:#101c3a;border:2px solid #3b82f6;color:#fff;display:flex;flex-direction:column;gap:2px;width:max-content;max-width:min(64vw,440px);z-index:5;}
 #cop-banner b{font-family:var(--f-display);font-weight:800;font-size:22px;letter-spacing:.08em;line-height:1.05;}
 #cop-banner span{font-size:12px;color:#d5dce2;line-height:1.3;}
@@ -223,35 +227,72 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
   .keys{display:none;}
   .g-panel{max-height:52vh;}
   .bc{bottom:auto;top:max(8px,env(safe-area-inset-top,0px));}
+  .tl{max-width:calc(50vw - 96px);}
+  .obj .s{display:none;}
+  .obj .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   #toast{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));}
-  #ctl{bottom:max(8px,env(safe-area-inset-bottom,0px));max-width:calc(100vw - 440px);}
-  .cbtn{width:48px;height:42px;}
-  #sensor{bottom:auto;top:108px;}
+  #hud:not([hidden]) ~ #toast{bottom:calc(var(--ctl-top,54px) + 8px);}
+  #ctl{bottom:max(8px,env(safe-area-inset-bottom,0px));flex-wrap:nowrap;width:min(372px,calc(100vw - 448px));max-width:none;}
+  .cbtn{flex:1 1 0;min-width:0;width:auto;height:42px;}
+  #sensor{left:max(12px,env(safe-area-inset-left,0px));transform:none;bottom:auto;top:76px;}
   #cop-banner{top:108px;}
   #cop-banner b{font-size:18px;}
-  #rearcam{top:70px;width:190px;}
+  #rearcam{top:76px;width:min(190px,calc((100vh - 290px) * 1.78));}
+  #center-msg{top:30%;}
+  #center-msg .big{font-size:30px;}
   .arrow{height:80px;}
+  #daily .doc{padding:16px;gap:9px;}
+  #daily .doc h2{font-size:26px;}
+  .daily-facts{grid-template-columns:auto 1fr auto 1fr;font-size:14px;gap:4px 14px;}
 }
-@media (max-width:640px){
-  .bc{bottom:auto;top:max(66px,calc(env(safe-area-inset-top,0px) + 66px));}
+@media (max-height:500px) and (max-width:740px){
+  .cbtn{font-size:8.5px;letter-spacing:.02em;}
+  .cbtn svg{width:18px;height:18px;}
+  .arrow{width:66px;}
+}
+@media (max-width:860px) and (min-height:501px){
+  #ctl{bottom:200px;}
+}
+@media (max-width:700px){
   #speedo{width:150px;height:84px;}
-  .tl{max-width:calc(100vw - 190px);}
   .obj .s{display:none;}
+  .obj .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   #mapwrap{width:110px;height:110px;}
   .logo{font-size:48px;}
+  .menu-list .btn{font-size:18px;white-space:nowrap;}
+  .menu-list .btn small{white-space:normal;text-align:right;}
 }
-@media (max-width:640px) and (min-height:501px){
-  #ctl{bottom:214px;max-width:calc(100vw - 16px);}
-  .cbtn{width:48px;}
-  #sensor{bottom:272px;}
-  #cop-banner{top:158px;}
-  #rearcam{top:162px;}
+@media (max-width:700px) and (min-height:501px){
+  .bc{bottom:auto;top:max(74px,calc(env(safe-area-inset-top,0px) + 74px));}
+  .tl{max-width:calc(100vw - 190px);}
+  #ctl{flex-wrap:nowrap;width:min(372px,calc(100vw - 16px));max-width:none;}
+  .cbtn{flex:1 1 0;min-width:0;width:auto;}
+  #cop-banner{top:166px;max-width:calc(100vw - 24px);}
+  #cop-banner b{font-size:18px;}
+  #rearcam{top:166px;}
+  #hud:not([hidden]) ~ #toast{top:auto;bottom:calc(var(--ctl-top,246px) + 52px);}
 }
 @media (max-width:440px){
   #wheel{width:140px;height:140px;}
   #brake{width:70px;height:70px;}
   #gas{width:56px;}
   .arrow{width:68px;}
+}
+@media (max-width:380px){
+  #wheel{width:128px;height:128px;}
+  #brake{width:62px;height:62px;}
+  #gas{width:52px;}
+  .arrow{width:62px;}
+  .cbtn{font-size:9px;letter-spacing:.04em;}
+}
+@media (max-height:620px) and (min-width:560px){
+  #menu .wrap{width:min(740px,100%);display:grid;grid-template-columns:minmax(170px,220px) 1fr;grid-template-areas:"logo list" "status list" "foot list";gap:10px 20px;padding:16px;align-items:start;}
+  .logo{grid-area:logo;font-size:44px;}
+  .statusrow{grid-area:status;}
+  .menu-list{grid-area:list;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .menu-list .btn{flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:10px 12px;font-size:18px;min-height:58px;}
+  .menu-list .btn small{text-align:left;}
+  .footlinks{grid-area:foot;align-self:end;gap:6px 14px;}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 </style>
@@ -1664,11 +1705,11 @@ function violation(type) {
   if (rules.noteT <= 0) { rules.noteT = 8; flash(type === 'red' ? 'You ran a red light. No police saw it this time.' : 'You rolled through a stop sign. No police saw it this time.'); }
 }
 function updateCopHud() {
-  const w = police.wanted, b = $('#cop-banner'), watch = police.seen && !w && state.mode === 'play';
+  const w = police.wanted, b = $('#cop-banner'), watch = police.seen && !w && state.mode === 'play', was = b.hidden;
   $('#mapwrap').classList.toggle('seen', watch); $('#copeye').hidden = !watch;
-  if (!w || state.mode !== 'play') { b.hidden = true; return; }
-  b.hidden = false; $('#cb-title').textContent = w.stopT > 0.5 ? 'STAY STOPPED' : 'POLICE · PULL OVER';
-  $('#cb-sub').textContent = Object.keys(w.off).map(k => FINES[k][0]).join(' · ');
+  b.hidden = !w || state.mode !== 'play';
+  if (!b.hidden) { $('#cb-title').textContent = w.stopT > 0.5 ? 'STAY STOPPED' : 'POLICE · PULL OVER'; $('#cb-sub').textContent = Object.keys(w.off).map(k => FINES[k][0]).join(' · '); }
+  if (b.hidden !== was) layoutAssist();
 }
 function endPursuit() {
   police.wanted = null; sfx.siren(false);
@@ -2130,7 +2171,7 @@ function dailySpec(key = dayKey()) {
   }
   if (!spawn) { spawn = [149.3, 120, 0]; far = Math.abs(149.3 - t.x) + Math.abs(120 - t.z); }
   const time = Math.round((95 + far / 4.5 + (kind === 'slot' ? 30 : reverse ? 25 : 10)) / 5) * 5;
-  dailyCache = { key, id: 'daily', group: 'daily', kind, name, place, desc, spawn, target, time, traffic: 10 + ((R() * 13) | 0), reverse, dummies: dummyCars, tod: pick(TOD_ORDER), car: pick(CARS).id };
+  dailyCache = { key, id: 'daily', group: 'daily', kind, name, place, desc, spawn, target, time, traffic: 10 + ((R() * 13) | 0), reverse, dummies: dummyCars, tod: pick(TOD_ORDER), car: pick(CARS.filter(c => profileOf(c).L <= t.l - 0.35)).id };   // the long pickup is spared the short mall bays
   return dailyCache;
 }
 const licensed = () => LEVELS.filter(l => l.group === 'license').every(l => save.stars[l.id] > 0);
@@ -2186,6 +2227,7 @@ function drawSpeedo() {
   const mph = save.set.units === 'mph', kmh = Math.abs(player.v) * 3.6, val = mph ? kmh * 0.621371 : kmh, full = mph ? 100 : 160, lim = mph ? 30 : 50;
   const over = kmh > SPEED_LIMIT + 1, cx = 200, cy = 200, r = 170, disp = '"Saira Condensed", sans-serif';
   c.lineCap = 'round'; c.textBaseline = 'alphabetic';
+  c.fillStyle = 'rgba(13,17,21,.46)'; c.beginPath(); c.arc(cx, cy, r + 10, PI, TAU); c.lineTo(cx + r + 10, cy + 16); c.lineTo(cx - r - 10, cy + 16); c.closePath(); c.fill();   // dial face, so the numbers read against a bright sky
   c.lineWidth = 16; c.strokeStyle = 'rgba(13,17,21,.72)'; c.beginPath(); c.arc(cx, cy, r, PI * 1.02, PI * 1.98); c.stroke();
   const f = Math.min(1, val / full);
   c.lineWidth = 10; c.strokeStyle = over ? '#ff5a5f' : '#ffb000'; c.beginPath(); c.arc(cx, cy, r, PI * 1.02, PI * (1.02 + 0.96 * f)); c.stroke();
@@ -2376,7 +2418,7 @@ function readInput(dt) {
   }
   input.drawWheel();
 }
-function cycleCam() { state.cam = CAMS[(CAMS.indexOf(state.cam) + 1) % CAMS.length]; save.cam = state.cam; persist(); flash(CAM_LABEL[state.cam] + ' camera'); $('#pz-cam').textContent = CAM_LABEL[state.cam]; if (player) updateCamera(0, true); }
+function cycleCam() { state.cam = CAMS[(CAMS.indexOf(state.cam) + 1) % CAMS.length]; save.cam = state.cam; persist(); if (state.mode === 'play') flash(CAM_LABEL[state.cam] + ' camera'); $('#pz-cam').textContent = CAM_LABEL[state.cam]; if (player) updateCamera(0, true); }
 function toggleLights() { lightsOn = !lightsOn; if (player) player.vis.lights(lightsOn || state.night); flash(lightsOn ? 'Headlights on' : 'Headlights off'); }
 $('#h-cam').addEventListener('click', cycleCam); $('#h-lights').addEventListener('click', toggleLights);
 
@@ -2413,16 +2455,48 @@ function sensorDist(rear) {
 }
 let rearOn = false, rearFlip = 0, sensorLv = 0;
 function hideAssist() { $('#sensor').hidden = true; $('#rearcam').hidden = true; rearOn = false; sensorLv = 0; }
+// The rear camera and the sensor read-out slide down until they are clear of whatever else is up there
+// (objective panel, the speedo on phones, the police banner). CSS gives them their resting place.
+function layoutAssist() {
+  const rc = $('#rearcam'), sn = $('#sensor'), bn = $('#cop-banner');
+  rc.style.top = ''; sn.style.top = ''; sn.style.bottom = '';
+  const hits = (a, b) => a.left < b.right + 6 && a.right > b.left - 6 && a.top < b.bottom + 6 && a.bottom > b.top - 6;
+  const settle = (el, others) => {
+    if (el.hidden) return;
+    for (let n = 0; n < 3; n++) {
+      const r = el.getBoundingClientRect(); let top = -1;
+      for (const o of others) { if (!o || o.hidden) continue; const q = o.getBoundingClientRect(); if (q.width && hits(r, q)) top = Math.max(top, q.bottom + 8); }
+      if (top < 0) break; el.style.top = Math.round(top) + 'px'; el.style.bottom = 'auto';
+    }
+  };
+  settle(rc, [$('.tl'), $('.bc'), bn]);
+  settle(sn, [rc, bn, $('.tl'), $('.bc')]);
+}
+// Phones held sideways: fit the row of car controls into the gap between the steering and the pedals,
+// and tell the stylesheet where that row ended up so messages can sit just above it.
+function layoutHud() {
+  const ctl = $('#ctl'); ctl.style.left = ''; ctl.style.width = ''; ctl.classList.remove('two');
+  if ($('#hud').hidden) return;
+  if (matchMedia('(max-height:500px)').matches) {
+    const a = $('.bl').getBoundingClientRect().right + 8, b = $('.br').getBoundingClientRect().left - 8, gap = b - a;
+    if (gap > 120) { const two = gap < 276; ctl.classList.toggle('two', two); ctl.style.left = Math.round((a + b) / 2) + 'px'; ctl.style.width = Math.round(Math.min(two ? 214 : 372, gap)) + 'px'; }
+  }
+  document.documentElement.style.setProperty('--ctl-top', Math.round(innerHeight - ctl.getBoundingClientRect().top) + 'px');
+  layoutAssist();
+}
 function assistStep() {
   const c = player, on = save.set.assist && state.mode === 'play' && c.engine, rear = on && c.gear === 'R';
-  if (rear !== rearOn) { rearOn = rear; $('#rearcam').hidden = !rear; rearFlip = 0; }
+  let moved = rear !== rearOn;
+  if (moved) { rearOn = rear; $('#rearcam').hidden = !rear; rearFlip = 0; }
   let d = 9, lab = '';
   if (rear && c.v < 0.5) { d = sensorDist(true); lab = 'REAR'; }
   else if (on && c.gear === 'D' && Math.abs(c.v) < 4) { d = sensorDist(false); lab = 'FRONT'; if (d > 1.5) d = 9; }   // the nose only speaks up when something is really close
   const lv = d < 0.45 ? 4 : d < 1 ? 3 : d < 1.8 ? 2 : d < 3 ? 1 : 0, txt = d < 0.3 ? 'STOP' : d.toFixed(1) + ' m', el = $('#sensor');
-  el.hidden = lv === 0; if (lv) { el.dataset.lv = lv; $('#sn-lab').textContent = lab; $('#sn-dist').textContent = txt; }
+  if (el.hidden !== (lv === 0)) { el.hidden = lv === 0; moved = true; }
+  if (lv) { el.dataset.lv = lv; $('#sn-lab').textContent = lab; $('#sn-dist').textContent = txt; }
   if (rearOn) $('#rc-dist').textContent = d < 4 ? txt : '';
   sensorLv = lv && Math.abs(c.v) > 0.05 ? lv : 0;
+  if (moved) layoutAssist();
 }
 // the rear camera renders small into a texture, then is drawn mirrored (like a real backup camera) under the #rearcam frame
 const rearCam = new THREE.PerspectiveCamera(72, 16 / 9, 0.12, 300);
@@ -2699,10 +2773,11 @@ function garageFrame(dt) {
 const show = s => { $(s).hidden = false; }, hide = s => { $(s).hidden = true; };
 const SCREENS = ['#menu', '#career', '#garage', '#policy', '#online', '#settings', '#free', '#daily'];
 const OVERLAYS = ['#pause', '#result', '#ticket'];
-function screen(s) { SCREENS.forEach(x => $(x).hidden = x !== s); hide('#hud'); OVERLAYS.forEach(hide); }
 let toastT = 0;
+function clearToast() { toastT = 0; $('#toast').hidden = true; }
+function screen(s) { SCREENS.forEach(x => $(x).hidden = x !== s); hide('#hud'); OVERLAYS.forEach(hide); clearToast(); }
 function flash(msg, secs = 2.4) { const t = $('#toast'); t.textContent = msg; t.hidden = false; toastT = secs; }
-function showHud() { SCREENS.forEach(hide); OVERLAYS.forEach(hide); show('#hud'); $('#center-msg').hidden = true; $('#keys').hidden = COARSE; applySteerStyle(); updateCtl(); updateCopHud(); hideAssist(); updateCamera(0, true); renderPeers(); }
+function showHud() { SCREENS.forEach(hide); OVERLAYS.forEach(hide); show('#hud'); $('#center-msg').hidden = true; $('#keys').hidden = COARSE; applySteerStyle(); updateCtl(); updateCopHud(); hideAssist(); updateCamera(0, true); renderPeers(); layoutHud(); }
 // everything that has to stop when a drive ends
 function leaveDrive() { leaveOnline(); makeTargetVis(null); clearLevelProps(); policeReset(); sfx.quiet(); hideAssist(); input.horn = {}; }
 function goMenu() {
@@ -2713,7 +2788,7 @@ function goMenu() {
   screen('#menu'); renderMenu(); location.hash === '#privacy' && history.replaceState(null, '', ' ');
 }
 function toCareer() { leaveDrive(); state.mode = 'menu'; state.level = null; state.back = null; setTod(save.set.tod); setCops(copLv().n); screen('#career'); renderCareer(); }
-function backToPause() { state.back = null; SCREENS.forEach(hide); show('#hud'); show('#pause'); }
+function backToPause() { state.back = null; SCREENS.forEach(hide); show('#hud'); show('#pause'); layoutHud(); }
 function renderMenu() {
   $('#m-coins').textContent = save.coins.toLocaleString();
   const lic = licensed(); const pl = $('#m-license'); pl.textContent = lic ? 'Licensed driver' : 'No license yet'; pl.className = 'pill ' + (lic ? 'ok' : 'no');
@@ -2812,7 +2887,7 @@ $('#b-reset').addEventListener('click', () => {
   save = Object.assign(defaultSave(), keep); persist(); $('#b-reset').textContent = 'Reset progress'; flash('Progress reset'); spawnPlayer(149.3, 120, 0); renderMenu();
 });
 function pause() {
-  if (state.mode !== 'play') return; state.mode = 'pause'; sfx.quiet(); input.horn = {};
+  if (state.mode !== 'play') return; state.mode = 'pause'; sfx.quiet(); input.horn = {}; clearToast();
   $('#pz-title').textContent = $('#h-title').textContent; $('#pz-cam').textContent = CAM_LABEL[state.cam]; $('#pz-shadow').textContent = save.shadows ? 'On' : 'Off'; $('#pz-sound').textContent = save.sound ? 'On' : 'Off';
   $('#pz-restart').hidden = !state.level; $('#pz-car').hidden = !!state.level || state.online; show('#pause');
 }
@@ -2838,7 +2913,7 @@ addEventListener('hashchange', () => { if (location.hash === '#privacy') openPol
    tick() advances the game by dt seconds, draw() paints it. They are separate so the game can be stepped without drawing.
    ===================================================================== */
 function resize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
-addEventListener('resize', resize); resize();
+addEventListener('resize', () => { resize(); layoutHud(); }); resize();
 let last = performance.now(), acc = 0, menuT = 0, hudT = 0;
 const STEP = 1 / 60;
 function tick(dt, now) {
