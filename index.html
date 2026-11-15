@@ -113,6 +113,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
 .doc p,.doc ul{margin:0;max-width:65ch;color:#d5dce2;}
 .doc ul{padding-left:20px;}
 .doc .meta{color:var(--mute);font-size:13px;}
+.doc a{color:var(--amber);}
 .field{display:flex;flex-direction:column;gap:6px;}
 .field input{padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--chip);color:var(--paper);font:inherit;font-size:17px;user-select:text;-webkit-user-select:text;}
 .doc.wide{width:min(900px,100%);}
@@ -164,7 +165,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
 #center-msg{position:absolute;left:50%;top:26%;transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;}
 #center-msg .big{font-family:var(--f-display);font-weight:800;font-size:40px;letter-spacing:.02em;text-shadow:0 2px 12px rgba(0,0,0,.6);}
 #parkring{width:64px;height:64px;}
-#toast{position:fixed;left:50%;top:max(78px,calc(env(safe-area-inset-top,0px) + 78px));transform:translateX(-50%);padding:9px 16px;border-radius:99px;background:var(--panel-solid);border:1px solid var(--line);font-weight:600;font-size:14px;pointer-events:none;max-width:calc(100% - 32px);text-align:center;z-index:30;}
+#toast{position:fixed;left:50%;top:max(96px,calc(env(safe-area-inset-top,0px) + 96px));transform:translateX(-50%);padding:9px 16px;border-radius:99px;background:var(--panel-solid);border:1px solid var(--line);font-weight:600;font-size:14px;pointer-events:none;width:max-content;max-width:calc(100% - 32px);text-align:center;z-index:30;}
 #peers{padding:8px 10px;font-size:12px;display:flex;flex-direction:column;gap:3px;max-width:180px;}
 #peers b{font-family:var(--f-display);font-size:14px;letter-spacing:.06em;}
 #peers .me{color:var(--amber);}
@@ -231,7 +232,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
   .obj .s{display:none;}
   .obj .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   #toast{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));}
-  #hud:not([hidden]) ~ #toast{bottom:calc(var(--ctl-top,54px) + 8px);}
+  #hud:not([hidden]) ~ #toast{bottom:calc(var(--ctl-top,54px) + 8px);left:var(--hud-cx,50%);max-width:var(--hud-gap,calc(100% - 32px));}
   #ctl{bottom:max(8px,env(safe-area-inset-bottom,0px));flex-wrap:nowrap;width:min(372px,calc(100vw - 448px));max-width:none;}
   .cbtn{flex:1 1 0;min-width:0;width:auto;height:42px;}
   #sensor{left:max(12px,env(safe-area-inset-left,0px));transform:none;bottom:auto;top:76px;}
@@ -416,15 +417,15 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
   </div>
 </section>
 
-<!-- ============ POLICY ============ -->
+<!-- ============ POLICY (privacy.html carries the same text; keep the two in step) ============ -->
 <section id="policy" class="screen" hidden>
   <article class="doc panel">
     <div class="eyebrow">Curbline</div>
     <h2>Privacy policy</h2>
-    <p class="meta">Effective November 14, 2026</p>
+    <p class="meta">Effective November 15, 2026</p>
     <p>This policy explains what information Curbline ("the game", "we") uses, why, and the choices you have. Curbline is a parking and driving game. We built it to collect as little as possible.</p>
     <h3>What stays on your device</h3>
-    <p>Your career progress, coin balance, owned cars, car customizations, daily challenge results, driver name and settings (sound, steering, time of day, police level and similar) are saved in your browser's local storage on your device. They are not sent to us. Clearing your browser's site data, or tapping "Reset progress", deletes your progress.</p>
+    <p>Your career progress, coin balance, owned cars, car customizations, daily challenge results, driver name and settings (sound, steering, time of day, police level and similar) are saved in your browser's local storage on your device. They are not sent to us. Clearing your browser's site data, or tapping "Reset progress" in the game menu, deletes your progress.</p>
     <h3>Online mode</h3>
     <p>Online free drive is switched off for now, so the game does not share anything with other players. If it returns, it will share only these things, live and without storing them, with the players connected at the same moment:</p>
     <ul>
@@ -435,7 +436,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
     <h3>Game controllers</h3>
     <p>If you connect a game controller, the game reads its buttons and sticks so you can drive with it. Nothing about the controller is stored or sent anywhere.</p>
     <h3>How the game reaches you</h3>
-    <p>Curbline is a web page. As with any website, the services that deliver its files (our web host, plus the public networks that serve its fonts and its 3D graphics library) receive standard technical details such as your IP address and browser type when your browser downloads them. We do not use those details to identify you.</p>
+    <p>Curbline is a web page. As with any website, the services that deliver its files receive standard technical details such as your IP address and browser type when your browser downloads them. Those services are our web host (Netlify), Google Fonts for the typefaces, and the cdnjs library network (run by Cloudflare) for the 3D graphics library. We do not use those details to identify you.</p>
     <h3>What we do not do</h3>
     <ul>
       <li>No advertising, ad tracking or analytics SDKs.</li>
@@ -449,6 +450,7 @@ input[type=range]{width:100%;accent-color:var(--amber);height:28px;}
     <p>If this policy changes, we will update the date at the top of this page.</p>
     <h3>Contact</h3>
     <p id="p-contact">Questions about privacy? A contact address is being set up and will be listed here.</p>
+    <p class="meta"><a href="privacy.html" target="_blank" rel="noopener">Open this policy as its own page</a></p>
     <div class="btnrow"><button class="sbtn primary" id="p-back">Back</button></div>
   </article>
 </section>
@@ -2475,13 +2477,17 @@ function layoutAssist() {
 // Phones held sideways: fit the row of car controls into the gap between the steering and the pedals,
 // and tell the stylesheet where that row ended up so messages can sit just above it.
 function layoutHud() {
-  const ctl = $('#ctl'); ctl.style.left = ''; ctl.style.width = ''; ctl.classList.remove('two');
+  const ctl = $('#ctl'), root = document.documentElement.style; ctl.style.left = ''; ctl.style.width = ''; ctl.classList.remove('two');
+  root.removeProperty('--hud-cx'); root.removeProperty('--hud-gap');
   if ($('#hud').hidden) return;
   if (matchMedia('(max-height:500px)').matches) {
     const a = $('.bl').getBoundingClientRect().right + 8, b = $('.br').getBoundingClientRect().left - 8, gap = b - a;
-    if (gap > 120) { const two = gap < 276; ctl.classList.toggle('two', two); ctl.style.left = Math.round((a + b) / 2) + 'px'; ctl.style.width = Math.round(Math.min(two ? 214 : 372, gap)) + 'px'; }
+    if (gap > 120) {
+      const two = gap < 276; ctl.classList.toggle('two', two); ctl.style.left = Math.round((a + b) / 2) + 'px'; ctl.style.width = Math.round(Math.min(two ? 214 : 372, gap)) + 'px';
+      root.setProperty('--hud-cx', Math.round((a + b) / 2) + 'px'); root.setProperty('--hud-gap', Math.round(gap) + 'px');
+    }
   }
-  document.documentElement.style.setProperty('--ctl-top', Math.round(innerHeight - ctl.getBoundingClientRect().top) + 'px');
+  root.setProperty('--ctl-top', Math.round(innerHeight - ctl.getBoundingClientRect().top) + 'px');
   layoutAssist();
 }
 function assistStep() {

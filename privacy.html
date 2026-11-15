@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Privacy policy for Curbline, the 3D parking and city driving game.">
+<meta name="theme-color" content="#0d1115">
+<title>Privacy policy · Curbline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;700;800&family=Saira:wght@400;500;600&display=swap">
+<style>
+/* Same text as the Privacy policy screen inside the game (index.html, #policy). Keep the two in step. */
+:root{
+  --ink:#0d1115; --panel:#151b21; --line:#2b343d; --paper:#eef2f5; --mute:#93a0ac; --amber:#ffb000; --amber-ink:#2a1d00;
+  --f-display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Saira",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding:max(20px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(32px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));}
+main{width:min(720px,100%);margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.logo{font-family:var(--f-display);font-weight:800;font-size:30px;line-height:1;letter-spacing:-.01em;color:var(--paper);text-decoration:none;display:inline-flex;flex-direction:column;gap:5px;}
+.logo i{display:block;height:6px;background:repeating-linear-gradient(90deg,var(--amber) 0 16px,var(--paper) 16px 32px);border-radius:2px;}
+.play{display:inline-block;padding:9px 16px;border-radius:9px;background:var(--amber);color:var(--amber-ink);font-family:var(--f-display);font-weight:700;font-size:17px;letter-spacing:.03em;text-decoration:none;}
+.play:hover{filter:brightness(1.08);}
+article{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;}
+h1,h2{font-family:var(--f-display);margin:0;letter-spacing:.01em;text-wrap:balance;}
+h1{font-size:38px;line-height:1.05;}
+h2{font-size:22px;margin-top:6px;}
+p,ul{margin:0;max-width:65ch;color:#d5dce2;}
+ul{padding-left:20px;}
+.eyebrow{font-family:var(--f-display);text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:var(--amber);font-weight:700;}
+.meta{color:var(--mute);font-size:13px;}
+a{color:var(--amber);}
+a:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px;}
+footer{color:var(--mute);font-size:13px;}
+@media (max-width:480px){article{padding:18px;} h1{font-size:32px;}}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">
+    <a class="logo" href="./" aria-label="Curbline, back to the game"><span>CURBLINE</span><i></i></a>
+    <a class="play" href="./">Play the game</a>
+  </div>
+  <article>
+    <div class="eyebrow">Curbline</div>
+    <h1>Privacy policy</h1>
+    <p class="meta">Effective November 15, 2026</p>
+    <p>This policy explains what information Curbline ("the game", "we") uses, why, and the choices you have. Curbline is a parking and driving game. We built it to collect as little as possible.</p>
+    <h2>What stays on your device</h2>
+    <p>Your career progress, coin balance, owned cars, car customizations, daily challenge results, driver name and settings (sound, steering, time of day, police level and similar) are saved in your browser's local storage on your device. They are not sent to us. Clearing your browser's site data, or tapping "Reset progress" in the game menu, deletes your progress.</p>
+    <h2>Online mode</h2>
+    <p>Online free drive is switched off for now, so the game does not share anything with other players. If it returns, it will share only these things, live and without storing them, with the players connected at the same moment:</p>
+    <ul>
+      <li>the driver name you type in (use a nickname, not your real name)</li>
+      <li>which car you drive and how it is customized</li>
+      <li>your car's position, direction and speed in the game city</li>
+    </ul>
+    <h2>Game controllers</h2>
+    <p>If you connect a game controller, the game reads its buttons and sticks so you can drive with it. Nothing about the controller is stored or sent anywhere.</p>
+    <h2>How the game reaches you</h2>
+    <p>Curbline is a web page. As with any website, the services that deliver its files receive standard technical details such as your IP address and browser type when your browser downloads them. Those services are our web host (Netlify), Google Fonts for the typefaces, and the cdnjs library network (run by Cloudflare) for the 3D graphics library. We do not use those details to identify you.</p>
+    <h2>What we do not do</h2>
+    <ul>
+      <li>No advertising, ad tracking or analytics SDKs.</li>
+      <li>No in-app purchases. Coins are earned only by playing and have no cash value.</li>
+      <li>No access to your camera, microphone, contacts or real-world location.</li>
+      <li>We do not sell or share personal information.</li>
+    </ul>
+    <h2>Children</h2>
+    <p>Curbline is suitable for general audiences. We do not knowingly collect personal information from children.</p>
+    <h2>Changes</h2>
+    <p>If this policy changes, we will update the date at the top of this page.</p>
+    <h2>Contact</h2>
+    <p id="p-contact">Questions about privacy? A contact address is being set up and will be listed here.</p>
+  </article>
+  <footer><a href="./">Back to Curbline</a></footer>
+</main>
+</body>
+</html>
