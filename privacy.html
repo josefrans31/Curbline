@@ -93,6 +93,8 @@ footer{color:var(--mute);font-size:13px;}
   </article>
   <footer><a href="./">Back to Curbline</a></footer>
 </main>
+<script>if (!/netlify\.app$/.test(location.hostname) && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') { var cf = document.querySelector('form.contact'); if (cf) cf.hidden = true; var pc = document.getElementById('p-contact'); if (pc) pc.textContent = 'Questions about privacy? The contact form is available at https://curbline.netlify.app/privacy.'; }
+</script>
 <script>if (/[?&]sent=1/.test(location.search)) { document.getElementById('thanks').hidden = false; var f = document.querySelector('form.contact'); if (f) f.hidden = true; }</script>
 </body>
 </html>
