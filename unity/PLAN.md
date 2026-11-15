@@ -1,6 +1,6 @@
 # Curbline in Unity: rebuild plan
 
-Status: **draft for Jose to confirm.** No Unity code is written yet. The web game (`index.html`) stays live and untouched while the Unity version is built.
+Status: **confirmed by Jose on 2026-11-15.** Phase 1 is in progress in [`josefrans31/curbline-unity`](https://github.com/josefrans31/curbline-unity). The web game (`index.html`) stays live and untouched while the Unity version is built.
 
 Goal: ship Curbline on the App Store and Google Play, with better looking cars and city than the current code-built models, keeping the gameplay that already works.
 
@@ -61,7 +61,7 @@ Online free drive (switched off on the web too). It can come back later as its o
 
 ## 2. Unity version and template
 
-- **Unity 6 LTS** (the newest version Unity Hub labels "LTS"; at the time of writing that is the Unity 6.3 LTS line, `6000.3.x`). LTS gets two years of fixes, which is what you want for a store release. Do not use a "Beta" or a non-LTS "Update" release.
+- **Unity 6.6** (`6000.6.7f1`) is what is installed and what the project uses. It is an update release, not LTS; Unity 6.7 LTS is due in Q4 2026, and the project moves to it when it ships (an in-place upgrade). LTS gets two years of fixes, which is what you want for the store release.
 - **Template: "Universal 3D"** (URP, Universal Render Pipeline). URP is Unity's mobile-friendly renderer and it runs well on a modest laptop. Do not pick HDRP (too heavy, not for phones).
 - **License:** Unity Personal is free while revenue stays under Unity's threshold (currently $200,000 a year).
 - Packages to add from the Package Manager in Phase 0: **Input System** (keyboard, touch and controller in one place), **Cinemachine** (cameras), **TextMeshPro** (comes with uGUI), **AI Navigation** is not needed (traffic follows our own lanes, like now).
@@ -75,7 +75,7 @@ Online free drive (switched off on the web too). It can come back later as its o
 
 ## 3. Where the Unity project lives
 
-**Recommended: a new GitHub repo, `curbline-unity`**, with Git LFS turned on for models, textures and audio, and Unity's standard `.gitignore` (so `Library/`, `Temp/`, `Builds/` are never committed). Reasons: a Unity project is large and binary heavy; keeping it out of this repo means GitHub Pages and Netlify keep serving the small web game exactly as now. Jose creates the empty repo (or says so and it can be added to this project). This plan file stays here as the hand-off.
+**Decided: a separate GitHub repo, [`curbline-unity`](https://github.com/josefrans31/curbline-unity)**, with Git LFS turned on for models, textures and audio, and Unity's standard `.gitignore` (so `Library/`, `Temp/`, `Builds/` are never committed). Reasons: a Unity project is large and binary heavy; keeping it out of this repo means GitHub Pages and Netlify keep serving the small web game exactly as now. This plan file stays here as the hand-off. Note: pushes of LFS files (art, audio) do not go through from Claude's cloud sessions, so asset packs are committed from the laptop.
 
 ### Folder layout inside the Unity project
 ```
@@ -167,9 +167,15 @@ Tips for a modest laptop: keep only one Unity project open, close Hub while work
 
 ---
 
-## 7. Decisions for Jose
+## 7. Decisions
 
-1. Confirm this plan (or change anything) before porting starts.
-2. OK to use a new `curbline-unity` repo (recommended) instead of putting the Unity project in this repo.
-3. iOS route: get a Mac later, or use a cloud build service. Nothing is needed until Phase 10.
-4. Art budget: free packs only, or one paid pack (for example Synty POLYGON City) for a consistent look.
+Made on 2026-11-15:
+1. Plan confirmed.
+2. Separate `curbline-unity` repo.
+3. Paid art is fine. Picks, with prices checked on 2026-11-15:
+   - Before Phase 3: Synty POLYGON City Pack ($9.99 on Synty's store on sale, $20 on the Unity Asset Store) and POLYGON Town Pack ($25 on sale, list $49.99). About $35.
+   - Phase 7, decide then: Synty POLYGON Street Racer ($100 on sale, $199.99 on the Asset Store), 8 car bodies plus 423 parts for the garage. Check the cars are original designs before buying.
+   - Phase 9, decide then: recorded engine sounds, for example Car Engines Vol. 2 ($29.99).
+
+Still open:
+- iOS route: get a Mac later, or use a cloud build service. Nothing is needed until Phase 10.
