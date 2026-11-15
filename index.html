@@ -1443,7 +1443,14 @@ function trafficStep(t, dt, R) {
       if (t.ctl < 2) want = Math.min(want, dStop <= 0.3 ? 0 : Math.sqrt(6.4 * dStop));
     }
   }
-  if (t.hot && player && Math.abs(player.v) < 0.6 && Math.hypot(player.x - t.x, player.z - t.z) < 11) want = 0;   // pulled up next to a stopped driver
+  if (t.hot && player && Math.abs(player.v) < 0.6) {
+    const d = Math.hypot(player.x - t.x, player.z - t.z);
+    if (d < 11) want = 0;   // pulled up next to a stopped driver
+    else if (t.mode === 'seg' && d < 46) {   // the driver stopped off the road: draw level with them and stop there
+      const ahead = (player.x - t.x) * t.seg.dir[0] + (player.z - t.z) * t.seg.dir[1];
+      if (ahead > -6 && ahead < 1.5) want = 0; else if (ahead >= 1.5 && ahead < 30) want = Math.min(want, Math.max(2.5, Math.sqrt(6 * ahead)));
+    }
+  }
   t.v += clamp(want - t.v, -9 * dt, (t.hot ? 6 : 3) * dt);
   if (t.v < 0.2 && blocked) { t.stuck += dt; if (t.stuck > (t.hot ? 1.5 : 5)) { t.ignore = 3; t.stuck = 0; } } else t.stuck = 0;
   t.s += t.v * dt;
@@ -1510,6 +1517,7 @@ function copMaybeUturn(t, dt) {
   const [ei, ek] = t.seg.end, [dx, dz] = t.seg.dir, si = ei - dx, sk = ek - dz;
   const rx = player.x - t.x, rz = player.z - t.z, along = rx * dx + rz * dz, lat = Math.abs(rx * dz - rz * dx);
   const man = (x, z) => Math.abs(x - player.x) + Math.abs(z - player.z);
+  if (Math.abs(player.v) < 0.6 && Math.abs(along) < 8) return;   // already level with a stopped driver
   const turn = lat < 12 ? along < -10 : (t.s + 14 + man(si * P, sk * P)) + 30 < (t.seg.len - t.s) + man(ei * P, ek * P);
   if (!turn) return;
   const rev = segFrom(ei, ek, [-dx, -dz]); const sNew = clamp(rev.len - t.s - 3, 0, rev.len - 0.5), f = sNew / rev.len;
@@ -1530,7 +1538,19 @@ function copApproachTarget(t) {   // a spot right behind the player, if it is fr
   const box = { x, z, h: c.h, hl: t.hl + 0.3, hw: t.hw + 0.25 };
   for (const s of nearStatics(x, z)) if (s.t === 'circ' ? circOverlap(box, s) : obbOverlap(box, s)) return null;
   for (const o of vehicles) if (o !== t && obbOverlap(box, o)) return null;
-  return losClear(t.x, t.z, x, z) ? { x, z, h: c.h } : null;
+  return losClear(t.x, t.z, x, z) && pathClear(t, x, z) ? { x, z, h: c.h } : null;
+}
+function pathClear(t, x1, z1) {   // can the patrol car roll straight there without driving through anything?
+  const dx = x1 - t.x, dz = z1 - t.z, len = Math.hypot(dx, dz), h = Math.atan2(dx, dz), n = Math.max(1, Math.ceil(len / 1.6));
+  const me = { x: player.x, z: player.z, h: player.h, hl: player.hl, hw: player.hw };
+  for (let i = 1; i <= n; i++) {
+    const box = { x: t.x + dx * i / n, z: t.z + dz * i / n, h, hl: t.hl * 0.6, hw: t.hw + 0.15 };
+    for (const s of nearStatics(box.x, box.z)) if (s.t === 'circ' ? circOverlap(box, s) : obbOverlap(box, s)) return false;
+    for (const o of vehicles) if (o !== t && obbOverlap(box, o)) return false;
+    for (const d of dummies) if (obbOverlap(box, d)) return false;
+    if (obbOverlap(box, me)) return false;
+  }
+  return true;
 }
 function copRejoin(t) {   // back onto the nearest lane that points roughly the way the car is facing
   t.free = false; t.tgt = null;
@@ -1690,12 +1710,19 @@ function policeStep(dt) {
     const o = cops.find(t => t.sees && t !== cop);
     if (o) { if (cop) { if (cop.free) copRejoin(cop); copCalm(cop); } w.cop = cop = o; o.hot = true; o.flashT = 0; o.uCd = 0; dist = Math.hypot(c.x - o.x, c.z - o.z); }
   }
-  w.lost = (police.seen || dist < 35) ? 0 : w.lost + dt;
+  const still = Math.abs(c.v) < 0.6;   // a driver who stops is waiting for the officer, not escaping
+  w.lost = (police.seen || dist < 35 || still) ? 0 : w.lost + dt;
   if (w.lost > 15) { endPursuit(); police.cool = 5; flash('You lost the police. No ticket this time.'); return; }
+  w.far = still && dist >= 50 ? (w.far || 0) + dt : 0;
+  if (w.far > 45) { endPursuit(); police.cool = 5; flash('The patrol car could not find you. No ticket this time.'); return; }
   if (!w.off.evade && w.t > 14 && Math.abs(c.v) > 3) { w.off.evade = true; flash('Failing to stop adds to the ticket. Pull over.'); updateCopHud(); }
   if (Math.abs(c.v) < 0.6 && dist < 50) w.stopT += dt; else w.stopT = Math.max(0, w.stopT - dt * 3);
-  if (cop && !cop.free && w.stopT > 0.5 && dist < 32) { const g = copApproachTarget(cop); if (g) { cop.free = true; cop.tgt = g; cop.freeT = 0; } }
-  if (cop && cop.free && Math.abs(c.v) > 1.5) copRejoin(cop);   // the driver took off again
+  w.tryT = (w.tryT || 0) - dt;
+  if (cop && !cop.free && w.stopT > 0.5 && dist < 32 && w.tryT <= 0) { w.tryT = 0.3; const g = copApproachTarget(cop); if (g) { cop.free = true; cop.tgt = g; cop.freeT = 0; } }
+  if (cop && cop.free) {   // the driver took off again, or rolled away from where the officer was heading
+    const gap = c.hl + cop.hl + 2.4, g = cop.tgt;
+    if (Math.abs(c.v) > 1.5 || Math.hypot(c.x - Math.sin(c.h) * gap - g.x, c.z - Math.cos(c.h) * gap - g.z) > 2.5) copRejoin(cop);
+  }
   if (cop && w.stopT > 1.6 && cop.v < 0.5 && (dist < 15 || w.stopT > 5)) { issueTicket(); return; }
   sfx.sirenDist(dist);
 }
@@ -1842,15 +1869,15 @@ function physics(dt) {
   let thr = c.engine && c.crank <= 0 ? input.thr : 0, brk = input.brk, st = input.steer;
   const lock = spec.lock, sr = 2.6 * (0.55 + 0.45 * save.set.steerSens);
   c.steer += clamp(st * lock - c.steer, -sr * dt, sr * dt);
-  let a = 0; const v = c.v, run = c.engine && c.crank <= 0;
+  let a = 0; const v = c.v, run = c.engine && c.crank <= 0, creep = run && brk === 0 && !police.wanted;   // an idling automatic rolls on its own, except when pulled over
   if (c.gear === 'P') { a = -Math.sign(v) * Math.min(Math.abs(v) / dt, 14); thr = 0; }
-  else if (c.gear === 'D') { if (thr > 0) a += v < 0 ? thr * 8 : thr * spec.acc * (1 - Math.max(0, v) / spec.top); else if (run && brk === 0 && v < 1.4) a += 1.1; }
-  else if (c.gear === 'R') { if (thr > 0) a -= v > 0 ? thr * 8 : thr * spec.acc * 0.7 * (1 - Math.max(0, -v) / 9); else if (run && brk === 0 && v > -1.1) a -= 1.1; }
+  else if (c.gear === 'D') { if (thr > 0) a += v < 0 ? thr * 8 : thr * spec.acc * (1 - Math.max(0, v) / spec.top); else if (creep && v < 1.4) a += 1.1; }
+  else if (c.gear === 'R') { if (thr > 0) a -= v > 0 ? thr * 8 : thr * spec.acc * 0.7 * (1 - Math.max(0, -v) / 9); else if (creep && v > -1.1) a -= 1.1; }
   if (brk > 0 && Math.abs(v) > 0.001) a -= Math.sign(v) * brk * 10;
   if (Math.abs(v) > 0.001) a -= v * 0.06 + Math.sign(v) * 0.25;
   let nv = v + a * dt;
-  if ((brk > 0 || c.gear === 'P' || !run || (thr === 0 && c.gear === 'N')) && Math.sign(nv) !== Math.sign(v) && v !== 0) nv = 0;
-  if (Math.abs(nv) < 0.02 && thr === 0 && (!run || (c.gear !== 'D' && c.gear !== 'R'))) nv = 0;
+  if ((brk > 0 || c.gear === 'P' || (thr === 0 && (!creep || c.gear === 'N'))) && Math.sign(nv) !== Math.sign(v) && v !== 0) nv = 0;
+  if (Math.abs(nv) < 0.02 && thr === 0 && (!creep || (c.gear !== 'D' && c.gear !== 'R'))) nv = 0;
   // steering: tires only grip so hard, so fast corners run wide; drift mode lets the tail step out
   const sp = Math.abs(nv), yawWant = -nv / c.wb * Math.tan(c.steer); let skid = 0;
   if ((c.drift || input.driftHold) && nv > 4.5) {
